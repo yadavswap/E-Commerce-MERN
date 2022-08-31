@@ -1,7 +1,14 @@
 const mongoose = require("mongoose");
 const express = require("express");
+var bodyParser = require('body-parser')
+var cors = require('cors')
+var cookieParser = require('cookie-parser')
+
 const app = express();
-mongoose.connect('mongodb://localhost:27017/test',{
+
+require('dotenv').config()
+
+mongoose.connect(process.env.DATABSE,{
     useNewUrlParser:true,
     useUnifiedTopology:true,
     useCreateIndex:true
@@ -9,9 +16,13 @@ mongoose.connect('mongodb://localhost:27017/test',{
 .then(()=>{
     console.log("Db Connected")
 });
+// middleware
+app.use(bodyParser.json())
+app.use(cors())
+app.use(cookieParser())
 
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 app.listen(port,()=>{
     console.log(`App runing on port ${port}`);
 })
