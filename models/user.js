@@ -32,7 +32,6 @@ const userSchema = new mongoose.Schema({
     salt: String,
     role: {
         type: String,
-        required: true,
         trim: true
     },
     purchases: {

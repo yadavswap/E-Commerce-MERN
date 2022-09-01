@@ -10,3 +10,5 @@
 
 ### robomongo
     -database used
+
+-jsonwebtoken
