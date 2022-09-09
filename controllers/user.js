@@ -22,3 +22,16 @@ exports.getUser = (req,res)=>{
 
     return res.json(req.profile);
 }
+
+// get all users
+
+exports.getAllUsers = (req,res)=>{
+    User.find().exec((err, users) => {
+        if (err || !users) {
+            return res.status(400).json({
+                error: "No User Found in DB"
+            });
+        }
+        return res.json(users);
+    })
+}
