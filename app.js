@@ -5,7 +5,10 @@ var cors = require('cors')
 var cookieParser = require('cookie-parser')
 
 const app = express();
+// my routes
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+
 require('dotenv').config()
 
 mongoose.connect(process.env.DATABSE,{
@@ -24,6 +27,8 @@ app.use(cookieParser())
 
 // Route
 app.use('/api',authRoutes);
+app.use('/api',userRoutes);
+
 const port = process.env.PORT || 8000;
 app.listen(port,()=>{
     console.log(`App runing on port ${port}`);
