@@ -27,3 +27,24 @@ exports.createCategory = (req,res)=>{
     });
    
 };
+
+
+// get all category
+
+exports.getAllCategory = (req,res)=>{
+    Category.find().exec((err, category) => {
+        if (err || !category) {
+            return res.status(400).json({
+                error: "No User Found in DB"
+            });
+        }
+        return res.json(category);
+    });
+};
+
+
+// get category specific
+
+exports.getCategory = (req, res) => {
+   
+};
