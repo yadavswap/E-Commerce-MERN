@@ -1,16 +1,57 @@
-const express = require('express')
-const router = express.Router()
-const {getCategoryById,createCategory,getAllCategory,getCategory} = require("../controllers/category");
-const {getUserById} = require("../controllers/user");
-const {isSignedIn,isAuthenticated } = require("../controllers/auth");
 
 
-// params 
+const express = require("express");
+const router = express.Router();
 
-router.param("userId",getUserById);
-router.param("categoryId",getCategoryById);
-router.post("/category/create/:userId",isSignedIn,isAuthenticated,createCategory);
-router.get("/categories",getAllCategory);
-router.get("/category:categoryId",getCategory);
+const {
+  getCategoryById,
+  createCategory,
+  getCategory,
+  getAllCategory,
+  updateCategory,
+  removeCategory
+} = require("../controllers/category");
+const { isSignedIn, isAuthenticated } = require("../controllers/auth");
+const { getUserById } = require("../controllers/user");
+
+//params
+router.param("userId", getUserById);
+router.param("categoryId", getCategoryById);
+
+//actual routers goes here
+
+//create
+router.post(
+  "/category/create/:userId",
+  isSignedIn,
+  isAuthenticated,
+
+  createCategory
+);
+
+//read
+router.get("/category/:categoryId", getCategory);
+router.get("/categories", getAllCategory);
+
+//update
+router.put(
+  "/category/:categoryId/:userId",
+  isSignedIn,
+  isAuthenticated,
+
+  updateCategory
+);
+
+//delete
+
+router.delete(
+  "/category/:categoryId/:userId",
+  isSignedIn,
+  isAuthenticated,
+  removeCategory
+);
+
+
 
 module.exports = router;
+
