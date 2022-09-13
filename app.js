@@ -9,6 +9,7 @@ const app = express();
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const CategoryRoutes = require("./routes/category");
+const ProductRoutes = require("./routes/product");
 
 require('dotenv').config()
 
@@ -30,6 +31,7 @@ app.use(cookieParser())
 app.use('/api',authRoutes);
 app.use('/api',userRoutes);
 app.use('/api',CategoryRoutes);
+app.use('/api',ProductRoutes);
 
 const port = process.env.PORT || 8000;
 app.listen(port,()=>{
