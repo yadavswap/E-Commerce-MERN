@@ -37,6 +37,7 @@ exports.getAllUsers = (req,res)=>{
     })
 }
 
+
 // update user
 
 exports.getUpdateUser = (req,res)=>{

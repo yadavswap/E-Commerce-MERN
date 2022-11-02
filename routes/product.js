@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+// const {getAllUsers} = require("../controllers/user");
 
 const {
   getProductById,
@@ -10,7 +11,8 @@ const {
   deleteProduct,
   updateProduct,
   getAllProduct,
-  getAllUniqueCategory
+  getAllUniqueCategory,
+  test
 } = require("../controllers/product");
 const {
   isSignedIn,
@@ -38,17 +40,25 @@ router.post(
 router.get("product/:productId", getProduct);
 router.get("product/photo/:productId", photo);
 // delete
-router.delete("product/:productId/:userId",
+router.delete("/product/:productId/:userId",
   isSignedIn,
   isAuthenticated,
   deleteProduct
   );
+// dlete
+// router.get('test',test)
 
 // update
 router.put("product/:productId/:userId", updateProduct);
 // listing
-router.get("products", getAllProduct);
-// get all unique category
+// router.get("products", getAllProduct);
+router.get("/products",getAllProduct);
+
 router.get("products/categories", getAllUniqueCategory);
+
+
+// router.get("/test",(req,res)=>{
+//   res.json({ message: "Hello World." });
+// })
 
 module.exports = router;

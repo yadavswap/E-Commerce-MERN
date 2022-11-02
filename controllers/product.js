@@ -2,9 +2,9 @@ const Product = require("../models/product");
 const formidable = require('formidable');
 const _ = require("lodash");
 const fs = require("fs");
-
+// get product
 exports.getProductById = (req, res, next, id) => {
-  product.findById(id).exec((err, pro) => {
+  Product.findById(id).exec((err, pro) => {
     if (err) {
       return res.status(400).json({
         error: "Product not found in DB",
@@ -15,7 +15,7 @@ exports.getProductById = (req, res, next, id) => {
   });
 };
 
-
+// create product
 exports.createProduct = (req, res) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
@@ -85,8 +85,9 @@ exports.photo = (req, res, next) => {
 // delete product
 
 exports.deleteProduct = (req, res) => {
+  
   let product = req.product;
-  product.remove((err, deleteProduct) => {
+  Product.deleteOne((err, deleteProduct) => {
     if (err) {
       return res.status(400).json({
         error: "faild to delete product",
@@ -139,21 +140,34 @@ exports.updateProduct = (req, res) => {
 }
 
 // listing
-exports.getAllProduct = (req, res) => {
+// exports.getAllProduct = (req, res) => {
+//   return 's';
+//   // Product.find()
+//   //   .select("_photo")
+//   //   .populate('category')
+//   //   .sort([sortBy, "asc"])
+//   //   .limit(limit)
+//   //   .exec((err, products) => {
+//   //     if (err) {
+//   //       return res.status(400).json({
+//   //         error: "NO Product Found",
+//   //       });
+//   //     }
+//   //   })
 
+// }
+exports.getAllProduct = (req,res)=>{
   Product.find()
-    .select("_photo")
-    .populate('category')
-    .sort([sortBy, "asc"])
-    .limit(limit)
-    .exec((err, products) => {
-      if (err) {
-        return res.status(400).json({
-          error: "NO Product Found",
-        });
+  .select(["_photo","name"])
+  .populate('category')
+  .exec((err, products) => {
+      if (err || !products) {
+          return res.status(400).json({
+              error: "No User Found in DB"
+          });
       }
-    })
-
+      return res.json(products);
+  })
 }
 
 // update stock 
